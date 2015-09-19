@@ -1,6 +1,5 @@
 # coding=utf-8
 import numpy as np
-import time
 import os
 import subprocess
 from chembako.bases import Config
@@ -11,12 +10,10 @@ from chembako.helpers import gromacs
 # http://compchemmpi.wikispaces.com/Manual+on+Computational+Physical+Chemistry+of+Ionic+liquids+at+Interfaces
 
 def packmol_impurity(cation, anion, impurity='', output='packmol.pdb', filetype='pdb', number_il=200, number_im=0,
-                     box_size=np.array((50, 50, 50), float), seed=None, log_file="packmol.log", parallel=False):
+                     box_size=np.array((50, 50, 50), float), seed=191917, log_file="packmol.log", parallel=False):
     """
     Make a box using packmol with the specified cation and anion.
     """
-    if seed is None:
-        seed = int(time.time() * 1000)
     try:
         inp_str = 'tolerance 2.0\n'\
             'filetype {filetype}\n'\
