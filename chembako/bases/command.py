@@ -8,14 +8,15 @@ class CommandSet(object):
     log_filename = None
 
     def __init__(self, log_file=None):
-        if isinstance(log_file, file):
-            self.log_file = log_file
-        elif isinstance(log_file, str):
-            self.log_file = open(log_file, 'w')
-        elif log_file is None:
-            self.log_file = open(self.log_filename, 'w')
-        else:
-            raise CommandError("cannot recognize the log file type.")
+        if self.log_file is None:
+            if isinstance(log_file, file):
+                self.log_file = log_file
+            elif isinstance(log_file, str):
+                self.log_file = open(log_file, 'w')
+            elif log_file is None:
+                self.log_file = open(self.log_filename, 'w')
+            else:
+                raise CommandError("cannot recognize the log file type.")
 
     def __del__(self):
         if self.log_file is not None and self.log_file is not sys.stdin:
