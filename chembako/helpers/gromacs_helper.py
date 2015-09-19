@@ -4,7 +4,7 @@ from chembako.bases import Config, CommandSet
 
 
 class Gromacs(CommandSet):
-    log_filename = "gromacs.log"
+    _log_filename = "gromacs.log"
 
     @property
     def _gmx_bin_dir(self):
@@ -14,7 +14,7 @@ class Gromacs(CommandSet):
     def _gmx_bin(self):
         return os.path.join(self._gmx_bin_dir, 'gmx')
 
-    @CommandSet.command
+    @CommandSet._command
     def editconf(self, input_file, output_file, other_args=None):
         if other_args is None:
             other_args = ""

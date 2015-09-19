@@ -8,7 +8,7 @@ from chembako.bases import CommandSet
 # Much infomation from:
 # http://compchemmpi.wikispaces.com/Manual+on+Computational+Physical+Chemistry+of+Ionic+liquids+at+Interfaces
 class IonicLiquid(CommandSet):
-    log_filename = 'ionic_liquid.log'
+    _log_filename = 'ionic_liquid.log'
 
     def packmol_impurity(self, cation, anion, impurity='', output='packmol.pdb', filetype='pdb', number_il=200, number_im=0,
                          box_size=np.array((50, 50, 50), float), seed=191917):
@@ -39,13 +39,13 @@ class IonicLiquid(CommandSet):
                                                impurity=impurity, number_il=number_il, number_im=number_im, size=box_size)
         except TypeError or IndexError or KeyError as e:
             raise e
-        self.log_screen("Packmol impurity input:")
-        self.log_screen("inp_str")
+        self._log_screen("Packmol impurity input:")
+        self._log_screen("inp_str")
         packmol.run(inp_str)
         if gromacs.editconf(output, '%s.gro' % '.'.join(output.split('.')[:-1])):
             os.remove(output)
-            self.log_screen("Packmol impurity successfully.")
+            self._log_screen("Packmol impurity successfully.")
             return True
         else:
-            self.log_screen("Error occured.")
+            self._log_screen("Error occured.")
             return False

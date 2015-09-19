@@ -5,10 +5,10 @@ from chembako.bases import ChemIOError, CommandSet
 
 
 class IOHelper(CommandSet):
-    log_file = sys.stdin
+    _log_file = sys.stdin
 
     def _load_molecule(self, filename, filetype, opt):
-        self.log("Loading %s" % filename, newline=False)
+        self._log("Loading %s" % filename, newline=False)
         if filetype is None:
             try:
                 filetype = filename.split('.')[1]
@@ -20,7 +20,7 @@ class IOHelper(CommandSet):
             raise ChemIOError(e.message)
         except IOError as e:
             raise ChemIOError(e.message)
-        self.log("Done.")
+        self._log("Done.")
         return tmol
 
     def load_molecule(self, filename, filetype=None, opt=None):
