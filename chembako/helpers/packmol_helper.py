@@ -1,6 +1,7 @@
 # coding=utf-8
 import os
 import subprocess
+import sys
 from chembako.bases import Config, CommandSet
 
 
@@ -16,7 +17,7 @@ class Packmol(CommandSet):
         return os.path.join(Config.PACKMOL_BIN_DIR, 'ppackmol' if self.parallel else 'packmol')
 
     def run(self, inp_str):
-        sp = subprocess.Popen([self._packmol_bin], stdin=subprocess.PIPE, stdout=self._log_file)
+        sp = subprocess.Popen([self._packmol_bin], stdin=subprocess.PIPE, stdout=sys.stdout, stderr=self._log_file)
         self._log("Running packmol with pid: %s." % sp.pid)
         sp.stdin.write(inp_str)
         sp.stdin.close()

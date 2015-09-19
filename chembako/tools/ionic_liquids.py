@@ -10,7 +10,8 @@ from chembako.bases import CommandSet
 class IonicLiquid(CommandSet):
     _log_filename = 'ionic_liquid.log'
 
-    def packmol_impurity(self, cation, anion, impurity='', output='packmol.pdb', filetype='pdb', number_il=200, number_im=0,
+    def packmol_impurity(self, cation, anion, impurity=None, output='packmol.pdb', filetype='pdb', number_il=200,
+                         number_im=0,
                          box_size=np.array((50, 50, 50), float), seed=191917):
         """
         Make a box using packmol with the specified cation and anion.
@@ -21,26 +22,24 @@ class IonicLiquid(CommandSet):
                       'output {output}\n' \
                       'seed {seed}\n' \
                       'add_box_sides 1.0\n' \
-                      '\n' \
                       'structure {cation}\n' \
                       '    number {number_il}\n' \
                       '    inside box 0. 0. 0. {size[0]} {size[1]} {size[2]}\n' \
                       'end structure\n' \
-                      '\n' \
                       'structure {anion}\n' \
                       '    number {number_il}\n' \
                       '    inside box 0. 0. 0. {size[0]} {size[1]} {size[2]}\n' \
-                      'end structure\n' \
-                      '\n' \
-                      'structure {impurity}\n' \
-                      '    number {number_im}\n' \
-                      '    inside box 0. 0. 0. {size[0]} {size[1]} {size[2]}\n' \
                       'end structure\n'.format(filetype=filetype, output=output, seed=seed, cation=cation, anion=anion,
-                                               impurity=impurity, number_il=number_il, number_im=number_im, size=box_size)
+                                               number_il=number_il, size=box_size)
+            if impurity is None:
+                inp_str += 'structure {impurity}\n' \
+                           '    number {number_im}\n' \
+                           '    inside box 0. 0. 0. {size[0]} {size[1]} {size[2]}\n' \
+                           'end structure\n'.format(impurity=impurity, number_im=number_im, size=box_size)
         except TypeError or IndexError or KeyError as e:
             raise e
         self._log_screen("Packmol impurity input:")
-        self._log_screen("inp_str")
+        self._log_screen(inp_str)
         packmol.run(inp_str)
         if gromacs.editconf(output, '%s.gro' % '.'.join(output.split('.')[:-1])):
             os.remove(output)
