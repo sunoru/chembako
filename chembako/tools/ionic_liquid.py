@@ -51,13 +51,15 @@ def packmol_impurity(cation, anion, impurity='', output='packmol.pdb', filetype=
     except TypeError or IndexError or KeyError as e:
         raise e
     packmol_bin = os.path.join(Config.PACKMOL_BIN_DIR, 'ppackmol' if parallel else 'packmol')
+    print inp_str
     with open(log_file, 'w') as fo:
+        print "Running packmol. The log will store in %s" % log_file
         sp = subprocess.Popen([packmol_bin], stdin=subprocess.PIPE, stdout=fo)
         sp.stdin.write(inp_str)
         sp.stdin.close()
     if gromacs.editconf(output, '%s.gro' % '.'.join(output.split('.')[:-1])):
         os.remove(output)
-        print "Running packmol successfully."
+        print "Packmol successfully."
         return True
     else:
         print "Error occured."
