@@ -16,10 +16,12 @@ def _load_molecule(filename, filetype, opt):
     except IOError as e:
         raise ChemIOError(e.message)
     return tmol
-    
+
+
 def load_molecule(filename, filetype=None, opt=None):
     mol = _load_molecule(filename, filetype, opt).next()
     return mol
+
 
 def load_molecules(filename, filetype=None, opt=None):
     mols = _load_molecule(filename, filetype, opt)
