@@ -2,7 +2,3 @@
 
 class ChemIOError(Exception):
     pass
-
-
-class CommandError(Exception):
-    pass

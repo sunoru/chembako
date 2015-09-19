@@ -1,28 +1,24 @@
 # coding=utf-8
 import sys
-from chembako.bases.errors import CommandError
 
 
 class CommandSet(object):
     _log_file = None
     _log_filename = None
 
-    def __init__(self, log_file=None):
-        if self._log_file is None:
-            if isinstance(log_file, file):
-                self._log_file = log_file
-            elif isinstance(log_file, str):
-                self._log_file = open(log_file, 'w')
-            elif log_file is None:
-                self._log_file = open(self._log_filename, 'w')
-            else:
-                raise CommandError("cannot recognize the log file type.")
+    class CommandError(Exception):
+        pass
 
     def __del__(self):
         if not (self._log_file is None or (sys is not None and self._log_file is sys.stdin)):
             self._log_file.close()
 
+    def _init_logfile(self):
+        self._log_file = open(self._log_filename, 'w')
+
     def _log(self, log_str, print_on_screen=False, newline=True):
+        if self._log_file is None:
+            self._init_logfile()
         log_str = '%s%s' % (log_str, '\n' if newline else "")
         self._log_file.write(log_str)
         if print_on_screen:
