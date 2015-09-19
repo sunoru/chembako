@@ -31,7 +31,7 @@ class IonicLiquid(CommandSet):
                       '    inside box 0. 0. 0. {size[0]} {size[1]} {size[2]}\n' \
                       'end structure\n'.format(filetype=filetype, output=output, seed=seed, cation=cation, anion=anion,
                                                number_il=number_il, size=box_size)
-            if impurity is None:
+            if impurity is not None:
                 inp_str += 'structure {impurity}\n' \
                            '    number {number_im}\n' \
                            '    inside box 0. 0. 0. {size[0]} {size[1]} {size[2]}\n' \

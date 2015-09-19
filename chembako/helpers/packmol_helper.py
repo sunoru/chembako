@@ -1,7 +1,6 @@
 # coding=utf-8
 import os
 import subprocess
-import sys
 from chembako.bases import Config, CommandSet
 
 
