@@ -22,8 +22,14 @@ class CommandSet(object):
         if self.log_file is not None and self.log_file is not sys.stdin:
             self.log_file.close()
 
-    def log(self, log_str, newline=True):
-        self.log_file.write('%s%s' % (log_str, '\n' if newline else ""))
+    def log(self, log_str, print_on_screen=False, newline=True):
+        log_str = '%s%s' % (log_str, '\n' if newline else "")
+        self.log_file.write(log_str)
+        if print_on_screen:
+            sys.stdout.write(log_str)
+
+    def log_screen(self, log_str, newline=True):
+        self.log(log_str, True, newline)
 
     @staticmethod
     def command(func):
