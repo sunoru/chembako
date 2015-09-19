@@ -8,7 +8,7 @@ class Packmol(CommandSet):
     log_filename = "packmol.log"
 
     def __init__(self, parallel=False):
-        CommandSet.__init__(self, parallel)
+        super(Packmol, self).__init__(parallel)
         self.parallel = parallel
 
     @property

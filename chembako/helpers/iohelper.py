@@ -5,7 +5,7 @@ from chembako.bases import ChemIOError, CommandSet
 
 
 class IOHelper(CommandSet):
-    logfile = sys.stdin
+    log_file = sys.stdin
 
     def _load_molecule(self, filename, filetype, opt):
         self.log("Loading %s" % filename, newline=False)
