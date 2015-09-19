@@ -1,5 +1,6 @@
 # coding=utf-8
 import sys
+import datetime
 from chembako.bases import Config
 
 
@@ -20,7 +21,8 @@ class CommandSet(object):
     def _log(self, log_str, print_on_screen=False, newline=True):
         if self._log_file is None:
             self._init_logfile()
-        log_str = '%s%s' % (log_str, '\n' if newline else "")
+        log_str = "[%s]" % datetime.datetime.now().strftime('%y-%m-%d %H:%M:%S')
+        log_str += '%s%s' % (log_str, '\n' if newline else "")
         self._log_file.write(log_str)
         if print_on_screen:
             sys.stdout.write(log_str)
