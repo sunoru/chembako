@@ -29,11 +29,14 @@ class CommandSet(object):
 
     @staticmethod
     def _command(func):
+        # make sure a command is supposed to return a boolean.
         def acommand(self, *args, **kwargs):
             self._log("Running %s." % func.func_name)
-            if func(self, *args, **kwargs):
+            result = func(self, *args, **kwargs)
+            if result:
                 self._log("%s completed." % func.func_name)
             else:
                 self._log("%s failed." % func.func_name)
+            return result
 
         return acommand
