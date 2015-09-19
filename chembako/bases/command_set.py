@@ -1,5 +1,6 @@
 # coding=utf-8
 import sys
+from chembako.bases import Config
 
 
 class CommandSet(object):
@@ -14,7 +15,7 @@ class CommandSet(object):
             self._log_file.close()
 
     def _init_logfile(self):
-        self._log_file = open(self._log_filename, 'w')
+        self._log_file = Config.get_log_file(self._log_filename)
 
     def _log(self, log_str, print_on_screen=False, newline=True):
         if self._log_file is None:
