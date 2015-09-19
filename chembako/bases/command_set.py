@@ -22,7 +22,7 @@ class CommandSet(object):
         if self._log_file is None:
             self._init_logfile()
         log_str = '%s%s' % (log_str, '\n' if newline else "")
-        log_str = "[%s]" % datetime.datetime.now().strftime('%y-%m-%d %H:%M:%S') + log_str
+        log_str = "[%s] " % datetime.datetime.now().strftime('%y-%m-%d %H:%M:%S') + log_str
         self._log_file.write(log_str)
         if print_on_screen:
             sys.stdout.write(log_str)
