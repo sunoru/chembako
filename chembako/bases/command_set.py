@@ -29,9 +29,9 @@ class CommandSet(object):
 
     @staticmethod
     def _command(func):
-        def acommand(self, **kwargs):
+        def acommand(self, *args, **kwargs):
             self._log("Running %s." % func.func_name)
-            if func(self, **kwargs):
+            if func(self, *args, **kwargs):
                 self._log("%s completed." % func.func_name)
             else:
                 self._log("%s failed." % func.func_name)
