@@ -1,7 +1,7 @@
 # coding=utf-8
 import sys
 import datetime
-from chembako.bases import Config
+from chembako.bases import Config, ChemIOError
 
 
 class CommandSet(object):
@@ -10,6 +10,16 @@ class CommandSet(object):
 
     class CommandError(Exception):
         pass
+
+    def __init__(self, **kwargs):
+        if 'log_file' in kwargs:
+            log_file = kwargs['log_file']
+            if isinstance(log_file, str):
+                self._log_filename = log_file
+            elif isinstance(log_file, file):
+                self._log_file = log_file
+            else:
+                raise ChemIOError("cannot recognize the log file.")
 
     def __del__(self):
         if not (self._log_file is None or (sys is not None and self._log_file is sys.stdin)):

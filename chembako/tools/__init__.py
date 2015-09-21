@@ -1,4 +1,4 @@
 # coding=utf-8
-from chembako.tools.ionic_liquids import IonicLiquid as __ionic_liquid
+from chembako.tools.tools import Tools as __Tools
 
-ionic_liquid = __ionic_liquid()
+tools = __Tools()
