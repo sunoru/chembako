@@ -1,7 +1,7 @@
 # coding=utf-8
 import numpy as np
 import os
-from chembako.helpers import gromacs, packmol
+from chembako.helpers import helpers
 from chembako.bases import CommandSet
 
 
@@ -40,8 +40,8 @@ class IonicLiquid(CommandSet):
             raise e
         self._log_screen("Packmol impurity input:")
         self._log_screen(inp_str)
-        packmol.run(inp_str)
-        if gromacs.editconf(output, '%s.gro' % '.'.join(output.split('.')[:-1])):
+        helpers.packmol.run(inp_str)
+        if helpers.gromacs.editconf(output, '%s.gro' % '.'.join(output.split('.')[:-1])):
             os.remove(output)
             self._log_screen("Packmol impurity successfully.")
             return True

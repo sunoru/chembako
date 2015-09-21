@@ -8,5 +8,5 @@ class Config(object):
     LOG_DIR = "."
 
     @classmethod
-    def get_log_file(cls, log_filename, mode='w'):
+    def get_log_file(cls, log_filename, mode='a'):
         return open(os.path.join(cls.LOG_DIR, log_filename), mode)
